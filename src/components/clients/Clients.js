@@ -8,7 +8,7 @@ const Client = () => {
     const [usuarios, setUsuarios] = useState([""]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/usuarios/listar").then(response => {
+        axios.get("https://bie-tech-api.herokuapp.com/api/usuarios/listar").then(response => {
             setUsuarios(response.data);
         })
     }, [])
