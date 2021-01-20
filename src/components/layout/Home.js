@@ -19,7 +19,7 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    axios.get("http://newsapi.org/v2/everything?q=tecnologia&apiKey=9c988c1b921d4f2eb0e0030700d6d254").then(response => {
+    axios.get("https://newsapi.org/v2/everything?q=tecnologia&apiKey=9c988c1b921d4f2eb0e0030700d6d254").then(response => {
       setNoticia(response.data);
     })
   }, [])
