@@ -1,0 +1,88 @@
+.products span {
+    color: blue;
+}
+
+.product-space {
+    margin-bottom: 100px;
+}
+
+.products-trabalho, .products-seguranca, .products-robos {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+
+.products-seguranca {
+    flex-wrap: wrap;
+}
+
+.trabalho_img {
+    height: 340px;
+}
+
+.security_img {
+    height: 230px;
+}
+
+.robot_img {
+    height: 320px;
+}
+
+.line {
+    border-bottom: 2px solid black;
+}
+.desc-pr {
+    font-size: 18px;
+    margin: 20px;
+    color: rgb(95, 95, 95);
+}
+
+@media screen and (max-width: 800px) {
+    .product-space {
+        margin-bottom: 80px;
+    }
+
+    .products-trabalho, .products-seguranca, .products-robos {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .trabalho_img, .security_img, .robot_img {
+        height: 300px;
+    }
+
+    .line {
+        border-bottom: 0px solid black;
+    }
+
+    .line-2 {
+        border-bottom: 2px solid black;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .product-space {
+        margin-bottom: 20px;
+    }
+
+    .products-trabalho, .products-seguranca, .products-robos {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .trabalho_img, .robot_img {
+        height: 260px;
+    }
+
+    .security_img {
+        height: 200px;
+    }
+
+    .line {
+        border-bottom: 0px solid black;
+    }
+
+    .line-2 {
+        border-bottom: 2px solid black;
+    }
+}

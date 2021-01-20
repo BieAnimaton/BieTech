@@ -1,0 +1,75 @@
+.auth-field {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin: 100px 0;
+}
+.auth-field .geral {
+    text-align: center;
+    padding: 40px;
+    width: 60%;
+    border-radius: 15px;
+    transition: .3s;
+    margin-bottom: 10px;
+}
+.auth-field .geral span {
+    font-size: 22px;
+    color: gray;
+}
+.auth-field .geral .aviso {
+    font-size: 34px;
+    color: black;
+    font-weight: normal;
+}
+.auth-field .geral .inicio {
+    text-align: left;
+    margin-bottom: 50px;
+}
+.barra-voltar {
+    margin-bottom: 50px;
+}
+.auth-field .geral label {
+    font-size: 28px;
+    color: black;
+    font-weight: bold;
+    margin-left: 0 90px;
+}
+.entradas {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: left;
+}
+.auth-field .geral input {
+    padding: 10px;
+    width: 80%;
+    font-size: 22px;
+    margin: 20px;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid #0082e6;
+}
+.label-confirme {
+    display: flex;
+}
+.auth-field .geral form button {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    padding: 20px;
+    text-transform: uppercase;
+    border-color: transparent;
+    background-color: #0082e6;
+    cursor: pointer;
+}
+.botao-field {
+    margin-top: 50px;
+}
+.auth {
+    margin-left: 20px;
+    color: #0082e6;
+    text-decoration: none;
+    font-weight: bold;
+}

@@ -1,0 +1,263 @@
+nav {
+    background: #0082e6;
+    height: 80px;
+    width: 100%;
+}
+.logo {
+    color: white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+}
+nav a {
+    color: white;
+}
+nav ul {
+    float: right;
+    margin-right: 20px;
+}
+nav ul li {
+    display: inline;
+    line-height: 80px;
+    margin: 0 5px;
+}
+nav ul li a {
+    color: white;
+    padding: 1.8rem 10px;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+nav ul li a:hover {
+    background: #1b9bff;
+    transition: .3s;
+}
+.checkbtn {
+    font-size: 30px;
+    color: white;
+    float: right;
+    line-height: 80px;
+    margin-top: 10px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+#check {
+    display: none;
+}
+
+
+
+
+
+
+
+.container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    word-break: break-all;
+}
+h3 {
+    font-size: 50px;
+    margin: 20px;
+}
+h4 {
+    font-size: 40px;
+    margin: 20px;
+    font-weight: 400;
+}
+h4 span{
+    font-weight: bold;
+}
+.moedas {
+    color: rgb(0, 194, 26);
+}
+.paragrafo {
+    font-size: 25px;
+    margin: 20px;
+    color: rgb(110, 110, 110);
+}
+h5 {
+    font-size: 32px;
+}
+
+
+
+.logo a {
+    font-size: 50px;
+}
+
+.head-text {
+    margin-bottom: 40px;
+}
+
+ul li a {
+    font-size: 25px;
+}
+
+.prices-field {
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+.prices-div {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.image-field {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 100px;
+}
+
+.image-field img {
+    height: 280px;
+    margin: 15px;
+}
+
+.noticia-field {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    word-break: break-all;
+}
+.noticia-field div {
+    width: 50%;
+}
+.noticia div p {
+    margin-bottom: 50px;
+    word-break: break-all;
+}
+.noticia-ti {
+    font-size: 26px;
+}
+.noticia-par {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 600px;
+}
+.noticia-img {
+    height: 280px;
+    margin: 30px 0;
+}
+
+img:hover {
+    box-shadow: 0px 0px 50px #000000;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.5);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.5);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.5);
+    transition: all 200ms ease-in;
+    transform: scale(1.2);
+}
+
+
+@media (max-width: 1050px) {
+    .logo {
+        font-size: 30px;
+        padding-left: 50px;
+    }
+    nav ul li a {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .checkbtn {
+        display: block;
+    }
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 80px;
+        left: -100%;
+        background: #2c3e50;
+        text-align: center;
+        transition: all .5s;
+    }
+    nav ul li {
+        display: block;
+    }
+    nav ul li a {
+        font-size: 20px;
+    }
+    nav ul li a:hover {
+        background: none;
+        color: #0082e6;
+    }
+    #check:checked ~ ul {
+        left: 0;
+        height: 100%;
+    }
+
+
+
+
+
+
+    .image-field {
+        flex-wrap: wrap;
+    }
+
+    .image-field img {
+        height: 260px;
+    }
+
+    .noticia-img {
+        height: 280px;
+        margin: 0px;
+    }
+}
+
+@media (max-width: 800px) {
+    .prices-field {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 420px) {
+    h3 {
+        font-size: 45px;
+        margin: 20px;
+    }
+    h4 {
+        font-size: 35px;
+        margin: 20px;
+        font-weight: 400;
+    }
+    .logo {
+        font-size: 15px;
+        padding-left: 25px;
+    }
+    .image-field img {
+        height: 170px;
+    }
+
+    .noticia-img {
+        height: 200px;
+        margin: 0px;
+    }
+    .prices-field {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 90%;
+        padding: 0px;
+        justify-content: space-between;
+        margin: auto;
+        margin-bottom: 100px;
+    }
+}
