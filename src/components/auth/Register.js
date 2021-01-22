@@ -1,160 +1,109 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
+import api from '../../services/api';
 
 import './styles.css';
 
 class Register extends Component {
-  constructor() {
-    super();
+
+  constructor(props) {
+    super(props)
+
     this.state = {
-      nome: "",
-      email: "",
-      senha: "",
-      senha2: "",
-      errors: {}
+        nome: '',
+        email: '',
+        senha: '',
+        senha2: ''
     };
+};
+  
+  changeHandler = e => {
+    this.setState( { [e.target.name]: e.target.value } )
   }
 
-  componentDidMount() {
-    // If logged in and user navigates to Register page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/tela_principal");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  }
-
-  onChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  onSubmit = e => {
+  submitHandler = e => {
     e.preventDefault();
-
-    const newUser = {
-      nome: this.state.nome,
-      email: this.state.email,
-      senha: this.state.senha,
-      senha2: this.state.senha2
-    };
-
-    this.props.registerUser(newUser, this.props.history);
-  };
+    api.post('/registrar', this.state);
+    this.props.history.push("/entrar")
+  }
 
   render() {
-    const { errors } = this.state;
+
+    const { nome, email, senha, senha2 } = this.state; 
 
     return (
       <div className="registrar">
-        <div className="conatiner">
-          <div className="auth-field">
-            <div className="geral">
-              <div className="inicio">
-                <div className="barra-voltar">
-                  <Link to="/">
-                    <span className="seta"><i class="fas fa-long-arrow-alt-left"></i> Voltar ao Início</span>
-                  </Link>
-                </div>
-                <div>
-                  <span className="aviso"><b>Registre</b> abaixo</span>
-                  <p>
-                    <span>Possui uma conta? <Link to="/entrar" className="auth">Entre</Link></span>
-                  </p>
-                </div>
-              </div>
-              <form noValidate onSubmit={this.onSubmit}>
-                <div className="entradas">
-                  <div>
-                    <label htmlFor="nome">Nome</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.name}
-                      error={errors.name}
-                      id="nome"
-                      type="text"
-                      className={classnames("", {
-                        invalid: errors.name
-                      })}
-                    />
-                    <span>{errors.name}</span>
+          <div className="conatiner">
+            <div className="auth-field">
+              <div className="geral">
+                <div className="inicio">
+                  <div className="barra-voltar">
+                    <Link to="/">
+                      <span className="seta"><i class="fas fa-long-arrow-alt-left"></i> Voltar ao Início</span>
+                    </Link>
                   </div>
                   <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.email}
-                      error={errors.email}
-                      id="email"
-                      type="email"
-                      className={classnames("", {
-                        invalid: errors.email
-                      })}
-                    />
-                    <span>{errors.email}</span>
+                    <span className="aviso"><b>Registre</b> abaixo</span>
+                    <p>
+                      <span>Possui uma conta? <Link to="/entrar" className="auth">Entre</Link></span>
+                    </p>
+                  </div>
+                </div>
+                <form noValidate onSubmit={this.submitHandler}>
+                  <div className="entradas">
+                    <div>
+                      <label htmlFor="nome">Nome</label>
+                      <input
+                        name="nome"
+                        id="nome"
+                        type="text"
+                        value={nome}
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email">Email</label>
+                      <input
+                        name="email"
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="senha">Senha</label>
+                      <input
+                        name="senha"
+                        id="senha"
+                        type="password"
+                        value={senha}
+                        onChange={this.changeHandler}
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label htmlFor="senha">Senha</label>
+                    <label className="label-confirme" htmlFor="senha2">Confirme a Senha</label>
                     <input
-                      onChange={this.onChange}
-                      value={this.state.password}
-                      error={errors.password}
-                      id="senha"
+                      name="senha2"
+                      id="senha2"
                       type="password"
-                      className={classnames("", {
-                        invalid: errors.password
-                      })}
+                      value={senha2}
+                      onChange={this.changeHandler}
                     />
                   </div>
-                  <span>{errors.password}</span>
-                </div>
-                <div>
-                  <label className="label-confirme" htmlFor="senha2">Confirme a Senha</label>
-                  <input
-                    onChange={this.onChange}
-                    value={this.state.password2}
-                    error={errors.password2}
-                    id="senha2"
-                    type="password"
-                    className={classnames("", {
-                      invalid: errors.password2
-                    })}
-                  />
-                  <span>{errors.password2}</span>
-                </div>
-                <div className="botao-field">
-                  <button type="submit">Registrar</button>
-                </div>
-              </form>
+                  <div className="botao-field">
+                    <button type="submit">Registrar</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+    )
+   }
   }
-}
 
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
+  export default Register;

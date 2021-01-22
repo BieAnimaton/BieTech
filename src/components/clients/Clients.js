@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import api from '../../services/api';
 
 import "./styles.css";
 
@@ -8,7 +9,7 @@ const Client = () => {
     const [usuarios, setUsuarios] = useState([""]);
 
     useEffect(() => {
-        axios.get("https://bie-tech-api.herokuapp.com/api/usuarios/listar").then(response => {
+        api.get("/listar").then(response => {
             setUsuarios(response.data);
         })
     }, [])

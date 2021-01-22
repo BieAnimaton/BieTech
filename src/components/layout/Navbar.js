@@ -17,7 +17,7 @@ class Navbar extends Component {
             <li><a href="/produtos">Produtos</a></li>
             <li><a href="/galeria">Galeria</a></li>
             <li><a href="/clientes">Clientes</a></li>
-            <li><a href="/tela_principal">História</a></li>
+            <li><a href="/historia">História</a></li>
             <li><a href="/tela_principal">Conta</a></li>
             <li><a href="/mensagens">Conversas</a></li>
           </ul>

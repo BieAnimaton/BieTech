@@ -5,7 +5,6 @@ import './styles.css'
 
 import Image_Hand from '../../imgs/home/hand.jpg';
 import Image_Notebbok from '../../imgs/home/notebook.jpg';
-import Image_Off from '../../imgs/image-off.png';
 
 const Home = () => {
 
