@@ -16,8 +16,8 @@ class Login extends Component {
         email: '',
         senha: '',
     };
-};
-  
+  };
+
   changeHandler = e => {
     this.setState( { [e.target.name]: e.target.value } )
   }
@@ -25,9 +25,17 @@ class Login extends Component {
   submitHandler = e => {
     e.preventDefault();
     const enter = api.post('/entrar', this.state).then(res => {
-      const { token } = res.data;
-      localStorage.setItem("ACCESS_TOKEN", token);
-      this.props.history.push("/tela_principal")
+      const { auth, token, cookies } = res.data;
+
+      const name = "ACCESS_TOKEN"
+      var now = new Date();
+      var time = now.getTime();
+      var expireTime = time + 10*1000;
+      now.setTime(expireTime);
+    
+      console.log(auth, token)
+      document.cookie = name + "=" + token + "; expires=" + now.toUTCString() + "; path=/";
+      this.props.history.push({ pathname: "/tela_principal", state: res.data })
     })
   }
 

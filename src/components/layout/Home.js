@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <div className="home">
       <div className="container">
-          <h3>Encontre os melhores software do mercado!</h3>
+          <h3>Encontre os melhores softwares do mercado!</h3>
           <h3>Oferecemos assistência e segurança.</h3>
           <p className="paragrafo">
             👀 Fique de olho nas notícias. Tem muita novidade! 👀
