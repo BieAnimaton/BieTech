@@ -46,13 +46,13 @@ function obterCookie(name) {
     return null;
   }
 
-  setInterval(() => {
-    if (obterCookie("ACCESS_TOKEN")) {
-      return false
-    } else {
-      document.location.reload(true);
-    }
-  }, 5000);
+  //setInterval(() => {
+  //  if (obterCookie("ACCESS_TOKEN")) {
+  //   return false
+  //  } else {
+  //    document.location.reload(true);
+  //  }
+  //}, 5000);
 
 class Dashboard extends Component {
 
