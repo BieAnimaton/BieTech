@@ -1,114 +1,175 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import api from '../../services/api';
-import { isAuthenticated } from "../../auth";
+import axios from 'axios';
+import { mostrarToken, obterCookie, decodificarCookie } from '../../utils/cookieFunctions';
 
-//{user.name.split(" ")[0]}
+import './styles.css'
 
-function mostrarToken() {
-  try {
-    var cookieArr = document.cookie.split(";");
-  
-    for(var i = 0; i < cookieArr.length; i++)
-        var cookiePair = cookieArr[i].split("=");
-        
-    cookiePair[1].trim();
-    document.querySelector(".token").innerHTML = decodeURIComponent(cookiePair[1]);
-  } catch {
-    document.location.reload(true);
-  }
-}
+export default function Dashboard() {
 
-function sair() {
-  var now = new Date();
+    const [auth, setAuth] = useState();
+    const [token, setToken] = useState("");
+    const [nome, setNome] = useState("");
+    const [id, setId] = useState();
+    const [dadosId, setDadosId] = useState([]);
+    const [editarDados, setEditarDados] = useState();
 
-  document.cookie = "ACCESS_TOKEN=; expires=" + now.toUTCString() + "; path=''";
-
-  document.location.reload(true);
-}
-
-function obterCookie(name) {
-  // Separa em array
-  var cookieArr = document.cookie.split(";");
-  
-  // Da um loop
-  for(var i = 0; i < cookieArr.length; i++) {
-    var cookiePair = cookieArr[i].split("=");
-      
-    //Remove espações e compara
-    if(name == cookiePair[0].trim()) {
-      // Decodifica e retorna
-      return decodeURIComponent(cookiePair[1]);
-    }
-  }
-    // Caso falhe, retorna nada
-    return null;
-  }
-
-  //setInterval(() => {
-  //  if (obterCookie("ACCESS_TOKEN")) {
-  //   return false
-  //  } else {
-  //    document.location.reload(true);
-  //  }
-  //}, 5000);
-
-class Dashboard extends Component {
-
-    state = {
-      dados: "",
-      auth: "",
-      token: "",
-      nome: "",
-      id: ""
-    }
-
-    componentDidMount() {
-
+    useEffect(() => {
       const config = {
-        headers: { "x-access-token": this.props.location.state.token }
+        headers: { "x-access-token": obterCookie("ACCESS_TOKEN") }
       };
     
-      api.get("obterDados", config).then(response => {
-        console.log(response.data)
+      const decodificado = decodificarCookie(obterCookie("ACCESS_TOKEN"));
 
-        this.state.dados = response.data;
+      setAuth(true);
+      setToken(obterCookie("ACCESS_TOKEN"))
+      setNome(decodificado.nome)
+      setId(decodificado.id)
+      
+    }, []);
 
-        this.setState({ auth: this.props.location.state.auth,
-                        token: this.props.location.state.token,
-                        nome: this.state.dados.decodificado.nome,
-                        id: this.state.dados.decodificado.id })
-      });
+    useEffect(() => {
+      api.get(`/listar/${id}`).then(response => {
+        setDadosId(response.data);
+      })
+    }, [id]);
+
+    function sair() {
+      var now = new Date();
+    
+      document.cookie = "ACCESS_TOKEN=; expires=" + now.toUTCString() + "; path=''";
+    
+      document.location.reload(true);
     }
 
-    render() {
+    function apagarConta() {
+      api.delete(`/deletar/${id}`).then(response => {
+        console.log(response.data);
+        sair();
+      })
+    }
 
-      const token = "";
-
-      return (
-        <div style={{ height: "75vh" }} className="container valign-wrapper">
-          <div className="row">
-            <div className="landing-copy col s12 center-align">
-              <h4>
-                <b>Bem vindo(a), {this.state.nome} </b> 
-                <p className="flow-text grey-text text-darken-1">
-                  Você está logado no site!
-                </p>
-              </h4>
-              <button onClick={sair}>Sair</button> <br/>
-              <button onClick={mostrarToken}>Mostrar Token</button> <br/>
-              <span className="token"></span> <br/>
-              <button onClick={() => {console.log(this.props)}}>Mostrar props</button> <br/>
-              <button onClick={() => {console.log(this.state.dados)}}>Mostrar dados</button> <br/>
-              <button onClick={() => {console.log(this.state.token, this.state.auth, this.state.id, this.state.nome)}}>Mostrar dados no State</button> <br/>
-              <button>Mostrar cadastro do Usuário</button> <br/>
-              <span className="cadastro"></span> <br />
-            </div>
+    return (
+      <div>
+        <div className="container">
+          <h4>
+            <b>Bem vindo(a), {nome} </b> 
+            <p className="paragrafo">Você está logado no site!</p>
+          </h4>
+          <button onClick={sair}>Sair</button> <br/>
+          <div className="botoes-iniciais">
+            <button onClick={mostrarToken}>Mostrar Cookie</button> <br/>
+            <span className="token"></span> <br/>
+            <button onClick={() => {console.log(decodificarCookie(obterCookie("ACCESS_TOKEN")))}}>Decodificar Cookie</button> <br/>
+          </div>
+          {editarDados ? <EditarDados /> : <Dados />}
+          <div className="botoes-finais">
+            <button className="editar" onClick={() => {setEditarDados(!editarDados)}}>Editar Conta</button>
+            <button className="apagar" onClick={() => {apagarConta()}}>Apagar Conta</button>
           </div>
         </div>
-    );
-  }
-}
+      </div>
+  );
 
-export default Dashboard;
+  //{dadosId.fotoPerfil && <h5>Foto de Perfil: <span className="desc-cl">{dadosId.fotoPerfil}</span></h5>}
+
+  function Dados() {
+    return (
+      <div className="dados-conta-id">
+        <div>
+          <h5>Nome: <span>{dadosId.nome}</span></h5>
+          {dadosId.sobrenome && <h5>Sobrenome: <span className="desc-cl">{dadosId.sobrenome}</span></h5>}
+          <h5>ID: <span className="desc-cl">{dadosId._id}</span></h5>
+          <h5>Email: <span className="desc-cl">{dadosId.email}</span></h5>
+          <h5>Senha: <span className="desc-cl">{dadosId.senha}</span></h5>
+          {dadosId.sexo && <h5>Sexo: <span className="desc-cl">{dadosId.sexo}</span></h5>}
+          {dadosId.dataNascimento && <h5>Data de Nascimento: <span className="desc-cl">{dadosId.dataNascimento}</span></h5>}
+          {dadosId.paisAtual && <h5>País atual: <span className="desc-cl">{dadosId.paisAtual}</span></h5>}
+          <h5>Data da Criação: <span className="desc-cl">{dadosId.dataCriacao}</span></h5>
+        </div>
+      </div>
+    );
+  };
+
+  function EditarDados() {
+
+    const[nome, setNome] = useState("");
+    const[sobrenome, setSobrenome] = useState("");
+    const[email, setEmail] = useState("");
+    const[senha, setSenha] = useState("");
+    const[sexo, setSexo] = useState("");
+    const[dataNascimento, setDataNascimento] = useState("");
+    const[paisAtual, setPaisAtual] = useState("");
+    const[mensagensUsu, setMensagensUsu] = useState("");
+    const[amigosUsu, setAmigosUsu] = useState("");
+    const[fotoPerfil, setFotoPerfil] = useState("");
+
+    const[nomePais, setNomePais] = useState(null);
+
+    useEffect(() => {
+      api.get(`/listar/${id}`).then(response => {
+        const { nome, sobrenome, email, senha, sexo, dataNascimento, paisAtual, mensagensUsuaruio, amigosUsuario, fotoPerfil  } = response.data;
+
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setEmail(email);
+        setSenha(senha);
+        setSexo(sexo);
+        setDataNascimento(dataNascimento);
+        setPaisAtual(paisAtual);
+        setMensagensUsu(mensagensUsuaruio);
+        setAmigosUsu(amigosUsuario);
+        setFotoPerfil(fotoPerfil);
+      });
+    }, []);
+
+    useEffect(() => {
+      axios.get("https://restcountries.eu/rest/v2/all").then(response => {
+        setNomePais(response.data);
+      });
+    }, []);
+
+    function atualizarDados(e) {
+      e.preventDefault();
+      api.put(`/alterar/${id}`, {nome, sobrenome, email, senha, sexo, dataNascimento, paisAtual}).then(response => {
+        const dados = (response.data);
+      });
+
+      setEditarDados(0);
+      document.location.reload(true);
+    }
+    
+    return (
+      <div className="dados-conta-id">
+        <div>
+          <form noValidate onSubmit={atualizarDados}>
+            <label htmlFor="foto-perfil">Foto de Perfil: </label>
+            <input name="foto-perfil" type="file"/><br />
+            <label htmlFor="nome">Nome: </label>
+            <input name="nome" type="text" onChange={(e) => {setNome(e.target.value)}}/><br />
+            <label htmlFor="sobrenome">Sobrenome: </label>
+            <input name="sobrenome" type="text" onChange={(e) => {setSobrenome(e.target.value)}}/><br />
+            <label htmlFor="senha">Senha: </label>
+            <input name="senha" type="text" disabled/><br />
+            <label htmlFor="email">Email: </label>
+            <input name="email" type="email" onChange={(e) => {setEmail(e.target.value)}}/><br />
+            <label htmlFor="sexo">Sexo: </label><br />
+            <i class="fas fa-mars icon"></i><input className="radio" name="sexo" type="radio" value="Masculino" onChange={(e) => {setSexo(e.target.value)}}/><br />
+            <i class="fas fa-venus icon"></i><input className="radio" name="sexo" type="radio" value="Feminino" onChange={(e) => {setSexo(e.target.value)}}/><br />
+            <label htmlFor="data-nascimento">Data de Nascimento: </label>
+            <input name="data-nascimento" type="date" onChange={(e) => {setDataNascimento(e.target.value)}}/><br />
+            <label htmlFor="pais-atual">País Atual: </label>
+            <select name="pais-atual" onChange={(e) => {setPaisAtual(e.target.value)}}>
+              {nomePais && nomePais.map(nome => (
+                <option key={nomePais.id}>{nomePais[12].translations.pt}</option>
+              ))}
+            </select>
+            <button type="submit">Salvar</button>
+          </form>
+        </div>
+      </div>
+    );
+  };
+};

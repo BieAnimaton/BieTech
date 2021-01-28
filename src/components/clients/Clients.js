@@ -6,21 +6,30 @@ import "./styles.css";
 
 const Client = () => {
 
-    const [usuarios, setUsuarios] = useState([""]);
+    const[usuarios, setUsuarios] = useState([""]);
+    const[pesquisa, setPesquisa] = useState("");
 
     useEffect(() => {
-        api.get("/listar").then(response => {
+        api.get("/listar", {
+            params: {
+                pesquisa: pesquisa
+            }
+        }).then(response => {
             setUsuarios(response.data);
         })
-    }, [])
+    }, [pesquisa]);
 
     return (
         <div className="clientes">
             <div className="container">
                 <h3>Principais clientes da Empresa</h3>
+                <div className="pesquisa-field">
+                    <p className="paragrafo">Pesquise por um usuário:</p>
+                    <input className="pesquisa" name="pesquisa" type="text" onChange={(e) => {setPesquisa(e.target.value)}}/>
+                </div>
                 <div className="lista-clientes">
                     {usuarios.map(usuario => (
-                        <div>
+                        <div key={usuario._id}>
                             <h5>Nome: <span>{usuario.nome}</span></h5>
                             <h5>Email: <span className="desc-cl">{usuario.email}</span></h5>
                             <h5>Senha: <span className="desc-cl">{usuario.senha}</span></h5>

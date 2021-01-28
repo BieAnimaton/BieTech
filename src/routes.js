@@ -1,5 +1,5 @@
 import React from "react";
-import { isAuthenticated } from "./auth";
+import { isAuthenticated } from "./utils/auth";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom"
 
@@ -11,8 +11,11 @@ import Products from "./components/products/Products";
 import Gallery from "./components/gallery/Gallery";
 import Clients from "./components/clients/Clients";
 import TelaPr from "./components/dashboard/Dashboard";
-import Messages from "./components/messages/Messages";
+import ChatMenu from "./components/chat/ChatMenu";
 import Footer from "./components/footer/Footer";
+import Timeline from "./components/timeline/Timeline";
+import ErrorPage from "./components/errorPage/errorPage";
+import Admin from "./components/admin/admin";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -29,6 +32,7 @@ const Routes = () => (
             <div className="App">
                 <Navbar />
                 <Route exact path="/" component={Home} />
+                <Route exact path="/admin" component={Admin} />
                 <Route exact path="/registrar" component={Register} />
                 <Route exact path="/entrar" component={Login} />
                 <Route exact path="/produtos" component={Products} />
@@ -37,7 +41,8 @@ const Routes = () => (
                 <Switch>
                     <PrivateRoute exact path="/tela_principal" component={TelaPr} />
                 </Switch>
-                <Route exact path="/mensagens" component={Messages} />
+                <Route exact path="/historia" component={Timeline} />
+                <Route exact path="/chat-menu" component={ChatMenu}/>                
                 <Footer />
             </div>
         </BrowserRouter>

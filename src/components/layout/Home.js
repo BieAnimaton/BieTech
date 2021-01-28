@@ -12,7 +12,7 @@ const Home = () => {
   const [noticia, setNoticia] = useState(null);
 
   useEffect(() => {
-    axios.get("https://api.hgbrasil.com/finance?format=json-cors&key=c21edb7b").then(response => {
+    axios.get("https://economia.awesomeapi.com.br/json/all").then(response => {
       setPrices(response.data);
     })
   }, [])
@@ -82,22 +82,28 @@ const Home = () => {
               {prices && (
                 <div className="prices-div">
                   <div>
-                    <h4 >Dólar: <span className="moedas">R$ {String(prices.results.currencies.USD.buy).replace(".",",")}</span></h4>
+                    <h4 >Dólar: <span className="moedas">R$ {String(prices.USD.bid).replace(".",",")} </span></h4>
                   </div>
                   <div>
-                    <h4>Dólar canadense: <span className="moedas">R$ {String(prices.results.currencies.CAD.buy).replace(".",",")}</span></h4>
+                    <h4>Dólar canadense: <span className="moedas">R$ {String(prices.CAD.bid).replace(".",",")}</span></h4>
                   </div>
                   <div>
-                    <h4>Euro: <span className="moedas">R$ {String(prices.results.currencies.EUR.buy).replace(".",",")}</span></h4>
+                    <h4>Euro: <span className="moedas">R$ {String(prices.EUR.bid).replace(".",",")}</span></h4>
                   </div>
                   <div>
-                    <h4>Libra Esterlina: <span className="moedas">R$ {String(prices.results.currencies.GBP.buy).replace(".",",")}</span></h4>
+                    <h4>Libra Esterlina: <span className="moedas">R$ {String(prices.GBP.bid).replace(".",",")}</span></h4>
                   </div>
                   <div>
-                    <h4>Iene: <span className="moedas">R$ {String(prices.results.currencies.JPY.buy).replace(".",",")}</span></h4>
+                    <h4>Iene: <span className="moedas">R$ {String(prices.JPY.bid).replace(".",",")}</span></h4>
                   </div>
                   <div>
-                    <h4>Bitcoin: <span className="moedas">R$ {String(prices.results.currencies.BTC.buy).replace(".",",")}</span></h4>
+                    <h4>Bitcoin: <span className="moedas">R$ {String(prices.BTC.bid).replace(".",",")}</span></h4>
+                  </div>
+                  <div>
+                    <h4>Litecoin: <span className="moedas">R$ {String(prices.LTC.bid).replace(".",",")}</span></h4>
+                  </div>
+                  <div>
+                    <h4>Ethereum: <span className="moedas">R$ {String(prices.ETH.bid).replace(".",",")}</span></h4>
                   </div>
                 </div>
               )}

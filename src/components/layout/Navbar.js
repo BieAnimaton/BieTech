@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import { obterCookie } from '../../utils/cookieFunctions';
 
 import "./styles.css";
 
@@ -12,14 +14,14 @@ class Navbar extends Component {
               <i className="fas fa-bars"></i>
             </label>
 
-          <label className="logo"><a href="/">BieTech</a></label>
+          <label className="logo"><a><Link to="/">BieTech</Link></a></label>
           <ul>
-            <li><a href="/produtos">Produtos</a></li>
-            <li><a href="/galeria">Galeria</a></li>
-            <li><a href="/clientes">Clientes</a></li>
-            <li><a href="/historia">História</a></li>
-            <li><a href="/tela_principal">Conta</a></li>
-            <li><a href="/mensagens">Conversas</a></li>
+            <li><Link to="/produtos">Produtos</Link></li>
+            <li><Link to="/galeria">Galeria</Link></li>
+            <li><Link to="/clientes">Clientes</Link></li>
+            <li><Link to="/historia">História</Link></li>
+            <li><Link to="/tela_principal">Conta</Link></li>
+            <li><Link to="/chat-menu">Chats</Link></li>
           </ul>
         </nav>
       </div>

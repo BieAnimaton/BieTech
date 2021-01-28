@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import api from '../../services/api';
+import { criarCookie } from '../../utils/cookieFunctions';
 
 import './styles.css';
 
-class Login extends Component {
+export default class Login extends Component {
 
   constructor(props) {
     super(props)
@@ -24,18 +25,13 @@ class Login extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-    const enter = api.post('/entrar', this.state).then(res => {
-      const { auth, token, cookies } = res.data;
+    api.post('/entrar', this.state).then(res => {
+      const { token } = res.data;
 
       const name = "ACCESS_TOKEN"
-      var now = new Date();
-      var time = now.getTime();
-      var expireTime = time + 10*1000;
-      now.setTime(expireTime);
-    
-      console.log(auth, token)
-      document.cookie = name + "=" + token + "; expires=" + now.toUTCString() + "; path=/";
-      this.props.history.push({ pathname: "/tela_principal", state: res.data })
+      criarCookie(name, token);
+
+      this.props.history.push("/tela_principal")
     })
   }
 
@@ -93,5 +89,3 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
