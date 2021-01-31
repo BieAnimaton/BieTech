@@ -152,7 +152,7 @@ export default function Dashboard() {
             <label htmlFor="sobrenome">Sobrenome: </label>
             <input name="sobrenome" type="text" onChange={(e) => {setSobrenome(e.target.value)}}/><br />
             <label htmlFor="senha">Senha: </label>
-            <input name="senha" type="text" disabled/><br />
+            <input name="senha" type="password" disabled/><br />
             <label htmlFor="email">Email: </label>
             <input name="email" type="email" onChange={(e) => {setEmail(e.target.value)}}/><br />
             <label htmlFor="sexo">Sexo: </label><br />

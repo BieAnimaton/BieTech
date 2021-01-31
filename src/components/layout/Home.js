@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { useInterval } from '../../utils/useInterval';
 
 import './styles.css'
 
@@ -10,12 +11,19 @@ const Home = () => {
 
   const [prices, setPrices] = useState(null);
   const [noticia, setNoticia] = useState(null);
+  const [timer, setTimer] = useState(null);
 
   useEffect(() => {
     axios.get("https://economia.awesomeapi.com.br/json/all").then(response => {
       setPrices(response.data);
     })
   }, [])
+  useInterval(() => {
+    axios.get("https://economia.awesomeapi.com.br/json/all").then(response => {
+      setPrices(response.data);
+    })
+    console.log("Mudando");
+  }, 10000)
 
   useEffect(() => {
     axios.get("https://newsapi.org/v2/everything?q=tecnologia&apiKey=9c988c1b921d4f2eb0e0030700d6d254").then(response => {
@@ -23,8 +31,11 @@ const Home = () => {
     })
   }, [])
 
-  if (noticia) {
-    console.log(noticia.articles[0]);
+  function setarBitcoin(moeda) {
+    let moedaBitcoin = moeda;
+    var metade = Math.floor(moeda.length / 2)
+    var bitcoin = moedaBitcoin.substr(0, metade) + "." + moedaBitcoin.substr(metade);
+    return bitcoin;
   }
 
   return (
@@ -32,9 +43,7 @@ const Home = () => {
       <div className="container">
           <h3>Encontre os melhores softwares do mercado!</h3>
           <h3>Oferecemos assistência e segurança.</h3>
-          <p className="paragrafo">
-            👀 Fique de olho nas notícias. Tem muita novidade! 👀
-          </p>
+          <p className="paragrafo">👀 Fique de olho nas notícias. Tem muita novidade! 👀</p>
             <div className="image-field">
               <img className="hand" src={Image_Hand}></img>
               <img src={Image_Notebbok}></img>
@@ -42,9 +51,7 @@ const Home = () => {
 
           <div>
             <h3>Notícias 📑</h3>
-            <p className="paragrafo">
-              Fique atento sobre a evolução e desenvolvimento das tecnologias
-              </p>
+            <p className="paragrafo">Fique atento sobre a evolução e desenvolvimento das tecnologias.</p>
               <div className="noticia">
                   {noticia && (
                     <div className="noticia-field">
@@ -75,9 +82,9 @@ const Home = () => {
 
           <div>
             <h3>Cotações 💲</h3>
-            <p className="paragrafo">
-              Valor atual das moedas no mercado
-            </p>
+            <p className="paragrafo">Valor atual das moedas no mercado.</p>
+            <p className="paragrafo">Dados atualizados em 10 segundos!</p>
+            <progress className="progresso-cotacoes" value="2" max="10"></progress>
             <div className="prices-field">
               {prices && (
                 <div className="prices-div">
@@ -97,7 +104,7 @@ const Home = () => {
                     <h4>Iene: <span className="moedas">R$ {String(prices.JPY.bid).replace(".",",")}</span></h4>
                   </div>
                   <div>
-                    <h4>Bitcoin: <span className="moedas">R$ {String(prices.BTC.bid).replace(".",",")}</span></h4>
+                    <h4>Bitcoin: <span className="moedas">R$ {setarBitcoin(prices.BTC.bid)}</span></h4>
                   </div>
                   <div>
                     <h4>Litecoin: <span className="moedas">R$ {String(prices.LTC.bid).replace(".",",")}</span></h4>

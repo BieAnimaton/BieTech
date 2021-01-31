@@ -7,11 +7,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: #0082e6;
+    background-color: #1d9dff;
     border-radius: 5px;
     padding: 20px;
     margin: 20px;
-    height: 400px;
+    height: 600px;
     transition: .3s all;
 }
 .chats-feild div:hover {
@@ -23,16 +23,17 @@
 }
 .chats-feild div span {
     font-size: 20px;
-    background-color: #0091ff;
-    margin: 50px 0;
+    background-color: #007bda;
+    margin-bottom: 150px;
     padding: 10px;
     border-radius: 5px;
 }
-.chats-feild div button {
-    background-color: #0091ff;
+.chats-feild div a {
+    background-color: #007bda;
     border-color: transparent;
     color: white;
     font-size: 30px;
+    line-height: 60px;
     text-transform: uppercase;
     height: 60px;
     border-radius: 5px;
@@ -40,7 +41,7 @@
     outline: none;
     transition: .1s all;
 }
-.chats-feild div button:active {
+.chats-feild div a:active {
     background-color: transparent;
     border: 2px solid #4fb3ff;
 }

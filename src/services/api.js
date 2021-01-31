@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: 'https://bie-tech-api.herokuapp.com/api/usuarios' });
+const api = axios.create({ baseURL: 'http://localhost:5000/api/usuarios' });
 
 export default api;

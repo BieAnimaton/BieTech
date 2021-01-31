@@ -6,7 +6,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 .lista-clientes span {
     color: rgb(49, 207, 160);
@@ -39,6 +39,25 @@
 }
 .pesquisa {
     width: 40%;
+}
+.botoes-pagina {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+.botoes-pagina button {
+    width: 30%;
+    font-size: 17px;
+    padding: 10px;
+    margin: 0 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    outline: none;
+    text-transform: uppercase;
+    border-color: transparent;
+    background-color: #5fbaff;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 @media (max-width: 1260px) {

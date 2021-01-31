@@ -8,16 +8,23 @@ const Client = () => {
 
     const[usuarios, setUsuarios] = useState([""]);
     const[pesquisa, setPesquisa] = useState("");
+    const[skip, setSkipped] = useState();
+    
+    useEffect(() => {
+        setSkipped(0);
+    }, [])
 
     useEffect(() => {
-        api.get("/listar", {
-            params: {
-                pesquisa: pesquisa
-            }
-        }).then(response => {
+        api.get(`/listar?pesquisa=${pesquisa}`).then(response => {
             setUsuarios(response.data);
         })
-    }, [pesquisa]);
+    }, [usuarios]);
+
+    function proximaPagina() {
+    };
+
+    function paginaAnterior() {
+    };
 
     return (
         <div className="clientes">
@@ -35,6 +42,10 @@ const Client = () => {
                             <h5>Senha: <span className="desc-cl">{usuario.senha}</span></h5>
                         </div>
                     ))}
+                </div>
+                <div className="botoes-pagina">
+                    <button onClick={() => {paginaAnterior()}}>Página anterior</button>
+                    <button onClick={() => {proximaPagina()}}>Próxima página</button>
                 </div>
             </div>
         </div>

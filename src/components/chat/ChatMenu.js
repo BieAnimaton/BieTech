@@ -16,17 +16,17 @@ const ChatPage = () => {
             <div>
               <h1>Computação</h1>
               <span>Sala sobre Hardwares (melhores peças) e Softwares (melhores programas)</span>
-              <Link to="/chat-computacao"><button>Entrar</button></Link>
+              <Link to="/chat-computacao">Entrar</Link>
             </div>
             <div>
               <h1>Programação</h1>
               <span>Sala sobre as diversas linguagens, com dicas, soluções e ideias novas</span>
-              <button>Entrar</button>
+              <Link to="/#">Entrar</Link>
             </div>
             <div>
               <h1>Segurança</h1>
               <span>Sala sobre Hacking, alguns ataques e respectivas defesas</span>
-              <button>Entrar</button>
+              <Link to="/#">Entrar</Link>
             </div>
           </div>
         </div>

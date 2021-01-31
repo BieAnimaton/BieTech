@@ -222,6 +222,10 @@ img:hover {
         margin: 0px;
     }
 }
+.progresso-cotacoes {
+    font-size: 30px;
+    width: 50%;
+}
 
 @media (max-width: 800px) {
     .prices-field {
